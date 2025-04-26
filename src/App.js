@@ -1,7 +1,6 @@
-import logo from "./logo.svg";
-import "./App.css";
-import { getMessages } from "./services/messageService";
 import { useEffect, useState } from "react";
+import { getMessages } from "./services/messageService";
+import "./App.css";
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -12,23 +11,24 @@ function App() {
       .catch((error) => console.error("Erro ao buscar mensagens:", error));
   }, []);
 
-  console.log(messages)
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Message Board</h1>
       </header>
+      <div className="message-board">
+        {messages.length === 0 ? (
+          <p>No messages yet...</p>
+        ) : (
+          messages.map((msg, idx) => (
+            <div key={idx} className="message">
+              <h3>{msg.user}</h3>
+              <p>{msg.text}</p>
+              <small>{new Date(msg.added).toLocaleString()}</small>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }

@@ -1,29 +1,41 @@
 const express = require("express");
-const cors = require("cors"); // Importa o CORS
+const cors = require("cors");
+const path = require("path");
 
 const app = express();
 
-// Habilita CORS para todas as requisições
 app.use(cors());
 
-const messages = [
-  {
-    text: "Hi there!",
-    user: "Amando",
-    added: new Date(),
-  },
-  {
-    text: "Hello World!",
-    user: "Charles",
-    added: new Date(),
-  },
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+let messages = [
+  { text: "Hi there!", user: "Amando", added: new Date() },
+  { text: "Hello World!", user: "Charles", added: new Date() },
 ];
-    
-app.get("/", (req, res) => {
-  res.json(messages);
+
+// Rota GET para mostrar o formulário
+app.get("/new", (req, res) => {
+  res.sendFile(path.join(__dirname, "views", "form.html"));
 });
 
-app.get("/api/new", (req, res) => {
+// Rota POST para receber dados do formulário
+app.post("/new", (req, res) => {
+  const { user, text } = req.body;
+  const newMessage = {
+    text,
+    user,
+    added: new Date(),
+  };
+
+
+  messages.push(newMessage);
+
+  // Retorna a lista de mensagens (ou pode redirecionar para a lista)
+  res.redirect("/messages");
+});
+
+app.get("/messages", (req, res) => {
   res.json(messages);
 });
 

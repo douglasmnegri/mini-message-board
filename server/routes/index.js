@@ -1,5 +1,10 @@
 const express = require("express");
+const cors = require("cors"); // Importa o CORS
+
 const app = express();
+
+// Habilita CORS para todas as requisições
+app.use(cors());
 
 const messages = [
   {
@@ -13,7 +18,7 @@ const messages = [
     added: new Date(),
   },
 ];
-
+    
 app.get("/", (req, res) => {
   res.json(messages);
 });
@@ -22,7 +27,6 @@ app.get("/api/new", (req, res) => {
   res.json(messages);
 });
 
-// Se quiser deixar rodando
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

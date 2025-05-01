@@ -38,22 +38,6 @@ function App() {
         <h1>Message Board</h1>
       </header>
 
-      {/* Exibição das mensagens */}
-      <div className="message-board">
-        {messages.length === 0 ? (
-          <p>No messages yet...</p>
-        ) : (
-          messages.map((msg, idx) => (
-            <div key={idx} className="message">
-              <h3>{msg.user}</h3>
-              <p>{msg.text}</p>
-              <small>{new Date(msg.added).toLocaleString()}</small>
-            </div>
-          ))
-        )}
-      </div>
-
-      {/* Formulário para enviar novas mensagens */}
       <div className="message-form">
         <h2>Send a New Message</h2>
         <form onSubmit={handleSubmit}>
@@ -79,6 +63,22 @@ function App() {
           <button type="submit">Send Message</button>
         </form>
       </div>
+      {/* Exibição das mensagens */}
+      <div className="message-board">
+        {messages.length === 0 ? (
+          <p>No messages yet...</p>
+        ) : (
+          messages.map((msg, idx) => (
+            <div key={idx} className="message">
+              <h3>{msg.user}</h3>
+              <p>{msg.text}</p>
+              <small>{new Date(msg.added).toLocaleString()}</small>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Formulário para enviar novas mensagens */}
     </div>
   );
 }

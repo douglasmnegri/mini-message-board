@@ -1,23 +1,29 @@
-// Update with your config settings.
-
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 module.exports = {
   development: {
-    client: "sqlite3",
+    client: "postgresql",
     connection: {
-      filename: "./dev.sqlite3", // SQLite database file for development
+      database: "message_board",
+      user: "douglasmnegri",
+      password: "pwd",
     },
-    useNullAsDefault: true, // SQLite-specific option to avoid warnings
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      tableName: "knex_migrations",
+    },
   },
 
   staging: {
     client: "postgresql",
     connection: {
-      database: "message_board", // Use the database you created (e.g., message_board)
-      user: "douglasmnegri", // Replace with your PostgreSQL username
-      password: "pwd", // Replace with your PostgreSQL password
+      database: "message_board",
+      user: "douglasmnegri",
+      password: "pwd",
     },
     pool: {
       min: 2,
@@ -31,9 +37,9 @@ module.exports = {
   production: {
     client: "postgresql",
     connection: {
-      database: "message_board", 
-      user: "douglasmnegri", 
-      password: "pwd", 
+      database: "message_board",
+      user: "douglasmnegri",
+      password: "pwd",
     },
     pool: {
       min: 2,
